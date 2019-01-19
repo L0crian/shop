@@ -1,0 +1,77 @@
+// Settings
+$grid-max-width: 1200px;
+$grid-columns: 12;
+$gutter: 2rem;
+
+
+// Grid
+
+// Wrapper
+@mixin wrapper {
+	box-sizing: border-box;
+	max-width: $grid-max-width;
+	padding: 0 40px 0 40px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.wrapper {
+	box-sizing: border-box;
+	max-width: $grid-max-width;
+	padding: 0 40px 0 40px;
+	position: relative;
+	margin: 0 auto;
+}
+
+
+
+// Row
+@mixin row($direction: row, $wrap: wrap) {
+	box-sizing: border-box;
+	display: flex;
+	flex: 0 1 auto;
+
+	@if $direction==row {
+		flex-direction: row;
+	}
+
+	@else {
+		flex-direction: column;
+	}
+
+	@if $wrap==wrap {
+		flex-wrap: wrap;
+	}
+
+	@else {
+		flex-wrap: nowrap;
+	}
+
+	margin-right: -$gutter/2;
+	margin-left: -$gutter/2;
+}
+
+// Basis col class
+@mixin col($size: false) {
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex: 0 0 auto;
+
+	margin-right: $gutter/2;
+	margin-left: $gutter/2;
+
+	@if(type-of($size) == 'number') {
+		$width: percentage($size/$grid-columns);
+		flex-basis: calc(#{$width} - #{$gutter});
+		max-width: calc(#{$width} - #{$gutter});
+	}
+}
+
+// Offset
+@mixin offset($size, $direction: left) {
+	$margin: percentage($size/$grid-columns);
+	margin-#{$direction}: calc(#{$margin} + #{$gutter}/2);
+}
+
